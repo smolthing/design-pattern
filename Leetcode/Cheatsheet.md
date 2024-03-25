@@ -584,3 +584,39 @@ def searchInsert(self, nums: List[int], target: int) -> int:
     return start
 ```
 
+1011. Capacity To Ship Packages Within D Days
+Guess the capacity to be between max value and sum of all values, then check if capacity will result in the n days. Do a binary search to find the next capacity guess.
+
+time complexity: O(nlogn)
+space complexity: O(1)
+```
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        start = max(weights)
+        end = sum(weights)
+
+        while start < end:
+            mid = (start + end) // 2
+            currentDays = self.getDays(mid, weights)
+            
+            if currentDays <= days:
+                end = mid
+            else:
+                start = mid + 1
+
+        return start
+
+    def getDays(self, capacity: int, weights: List[int]) -> int:       
+        days = 1
+        currentCapacity = 0
+ 
+        for w in weights:
+            currentCapacity += w
+
+            if currentCapacity > capacity:
+                days += 1
+                currentCapacity = w
+        print(days, capacity)
+        return days
+
+```
