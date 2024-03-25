@@ -1,0 +1,38 @@
+syntax = "proto3";
+package birb;
+
+service UserService {
+    rpc getUser(GetUserRequest) return (GetUserResponse) {}
+}
+
+message GetUserRequest{
+    int32 id = 1;
+}
+
+message GetUserResponse {
+    oneof response {
+        GetUserSuccessResponse success = 1;
+        GetUserErrorResponse error = 2;
+    }
+}
+
+message GetUserSuccessResponse {
+    string name = 1;
+}
+
+message GetUserErrorResponse {
+    repeated Errors errors = 1;
+}
+
+message GetUserErrorResponse {
+    string code = 1;
+    string title = 2;
+    int32 status = 3;
+}
+
+message GetUserEvent {
+    customheader header = 1;
+    int64 user_id = 2;
+
+    reserved 2000 to 2200;
+}

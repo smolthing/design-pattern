@@ -78,7 +78,7 @@ public class LRUCacheWithExtension<K,V> extends LinkedHashMap<K,V> {
 public class LRUCacheWithMapAndList<K,V> {
     private final int capacity;
     private final Map<K,V> cache;
-    private final List<K> queue;
+    private final LinkedList<K> queue;
     
     LRUCacheWithMapAndList(int capacity) {
         this.capacity = capacity;
@@ -107,7 +107,7 @@ public class LRUCacheWithMapAndList<K,V> {
     }
 
     public void moveToNewest(K key) {
-        queue.remove(key);
+        queue.remove(key); // remove(value of type k), not to be confused with remove(int) which removes by index
         queue.add(key);
     }
 
@@ -117,7 +117,7 @@ public class LRUCacheWithMapAndList<K,V> {
     }
 
     public void removeOldest() {
-        final K key = queue.remove(0);
+        final K key = queue.removeFirst(); // or remove(0) at index 0
         cache.remove(key);
     }
 

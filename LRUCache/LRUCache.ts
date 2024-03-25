@@ -36,7 +36,7 @@ class LRUCache2 {
 
     moveToNewest(key: number): void {
         this.removeKey(key);
-        this.queue.push(key);
+        this.queue.push(key); // add to back, use shift to remove first, splice to take out index
     }
 
     removeOldest(): void {

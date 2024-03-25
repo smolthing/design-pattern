@@ -44,6 +44,13 @@ interface Vehicle {
     int getNumberOfWheels();
 }
 
+abstract class Vehicle2 implements Vehicle {
+    @Override
+    public void print() {
+        System.out.println("From abstract class");
+    }
+}
+
 class Car implements Vehicle {
     @Override
     public void print() {
@@ -67,9 +74,10 @@ class Motorbike implements Vehicle {
     }
 }
 
-class Bus implements Vehicle {
+class Bus extends Vehicle2 {
     @Override
     public void print() {
+        super.print();
         System.out.println("bus");
     }
     @Override

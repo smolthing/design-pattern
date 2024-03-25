@@ -50,7 +50,7 @@ class LRUCache:
         return self.cache[key]
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache:
+        if key in self.cache.get(key):
             self.remove_key(key)
         elif len(self.cache) >= self.capacity:
             self.remove_oldest()

@@ -15,7 +15,7 @@ class RepoFetcher {
             return [{}, ""];
         } catch (error) {
             console.log(error);
-            return [{}, ""]
+            return [{}, ""];
         }
     }
 
