@@ -1,0 +1,20 @@
+version: "3.8" # Docker Compose file format
+
+services:
+  mysql:
+    image: mysql:8 # 8 uses latest minor version by default. Change to specific version 8.0.30
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: service_db  # Database name for service with Flyway
+
+  flyway:
+    image: flyway/flyway:7.15.0
+    depends_on:
+      - mysql
+    environment:
+      FLYWAY_USER: root
+      FLYWAY_PASSWORD: root  # Use the same credentials as MySQL
+      FLYWAY_URL: jdbc:mysql://mysql:3306/service_db
+    command: -url=jdbc:mysql://mysql:3306/service_db -user=root -password=root -connectRetries=60 migrate
+    volumes:
+      - ./sql:/flyway/sql  # Mount migration scripts directory using host_path:flyway_container_path
